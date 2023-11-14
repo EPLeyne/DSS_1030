@@ -4,13 +4,8 @@ library(unpivotr)
 library(openxlsx)
 library(janitor)
 
-datasheets <- 'D:/emmet/Documents/Rscripts/DSS/dss-income-support-recipient-monthly-time-series-september-2023.xlsx'
+datasheets <- 'dss-income-support-recipient-monthly-time-series-september-2023.xlsx'
 
-dss <- read_excel(datasheets, 
-                  sheet = 'Parenting Payment Single', skip = 5, col_names = new_names) %>%
-  clean_names()
-
-                 
 
 data_head <- read_excel(datasheets, sheet = 'Parenting Payment Single', skip = 1,
                                             n_max = 4, 
@@ -29,3 +24,9 @@ new_names <- data_head %>%
   unlist() %>% unname()
 
 new_names
+
+dss <- read_excel(datasheets, 
+                  sheet = 'Parenting Payment Single', skip = 5, col_names = new_names)# %>%
+  clean_names()
+
+colnames(dss)<-gsub(".NA","",colnames(dss))
